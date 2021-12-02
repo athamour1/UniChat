@@ -10,8 +10,8 @@
       <q-drawer
         v-model="drawerLeft"
         show-if-above
-        :width="200"
-        :breakpoint="700"
+        :width="400"
+        :breakpoint="1000"
         elevated
         class="bg-secondary text-accent"
       >
