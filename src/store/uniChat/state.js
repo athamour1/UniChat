@@ -1,5 +1,7 @@
 export default function () {
   return {
-    menu: []
+    menu: [{
+      child_menus: []
+    }]
   }
 }

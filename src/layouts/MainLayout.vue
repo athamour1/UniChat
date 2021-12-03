@@ -17,7 +17,27 @@
     >
       <q-scroll-area class="fit">
         <div class="q-pa-sm">
-         {{ menu }}
+          <q-list class="menuExpansion">
+            <q-expansion-item
+              :label="parentCategory.title"
+              v-for="parentCategory in menu"
+              :key="parentCategory.id"
+            >
+              <q-list>
+                <q-item
+                  clickable
+                  v-ripple
+                  v-for="childCategory in parentCategory.child_menus"
+                  :key="childCategory.id"
+                >
+                  <q-item-section>{{ childCategory.title }}</q-item-section>
+                </q-item>
+              </q-list>
+            </q-expansion-item>
+            <q-item clickable v-ripple>
+              <q-item-section> Callendar </q-item-section>
+            </q-item>
+          </q-list>
         </div>
       </q-scroll-area>
     </q-drawer>
@@ -33,7 +53,7 @@ import { useStore } from "vuex";
 
 export default {
   setup() {
-    const store = useStore()
+    const store = useStore();
     const menu = computed({
       get: () => store.state.uniChat.menu,
     });
