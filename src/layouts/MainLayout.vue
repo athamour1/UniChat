@@ -23,10 +23,11 @@
               v-for="parentCategory in menu"
               :key="parentCategory.id"
             >
-              <q-list>
+              <q-list class="menuExpansionItem">
                 <q-item
                   clickable
                   v-ripple
+                  bordered
                   v-for="childCategory in parentCategory.child_menus"
                   :key="childCategory.id"
                 >
