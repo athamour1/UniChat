@@ -1,11 +1,15 @@
 <template>
-  <q-page padding>
+  <q-page>
     <!-- content -->
   </q-page>
 </template>
 
 <script>
+import VCalendar from "v-calendar";
 export default {
-  // name: 'PageName',
-}
+  name: "Calendar",
+  setup() {
+    return {};
+  },
+};
 </script>
