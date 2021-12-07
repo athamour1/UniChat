@@ -38,6 +38,9 @@
             <q-item clickable v-ripple>
               <q-item-section> Callendar </q-item-section>
             </q-item>
+            <q-item clickable v-ripple>
+              <q-item-section> News </q-item-section>
+            </q-item>
           </q-list>
         </div>
       </q-scroll-area>
