@@ -1,7 +1,8 @@
 export default function () {
   return {
     menu: [{
-      child_menus: []
+      child_menus: [],
+      loggedin: false
     }]
   }
 }
