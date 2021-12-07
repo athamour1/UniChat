@@ -2,15 +2,23 @@
   <q-layout view="hHh Lpr lff" container style="height: 100vh" class="shadow-2">
     <q-header elevated class="bg-primary">
       <q-toolbar>
-        <q-btn flat @click="drawerLeft = !drawerLeft" round dense icon="menu" />
+        <q-btn
+          v-if="loggedin"
+          flat
+          @click="drawerLeft = !drawerLeft"
+          round
+          dense
+          icon="menu"
+        />
         <q-toolbar-title>UniChat</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-drawer
+      v-if="loggedin"
       v-model="drawerLeft"
       show-if-above
-      :width="400"
+      :width="300"
       :breakpoint="1000"
       elevated
       class="bg-secondary text-accent"
@@ -41,6 +49,15 @@
             <q-item clickable v-ripple>
               <q-item-section> News </q-item-section>
             </q-item>
+            <q-item class="" style="height: 100%" />
+            <q-item
+              @click="logout()"
+              clickable
+              v-ripple
+              class="absolute-bottom"
+            >
+              <q-item-section style="color: #BF616A;"> Logout </q-item-section>
+            </q-item>
           </q-list>
         </div>
       </q-scroll-area>
@@ -54,16 +71,36 @@
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 
 export default {
   setup() {
     const store = useStore();
+    const router = useRouter();
+    const q = useQuasar();
+
     const menu = computed({
       get: () => store.state.uniChat.menu,
     });
+    const loggedin = computed({
+      get: () => store.state.uniChat.loggedin,
+    });
     return {
       drawerLeft: ref(false),
+      loggedin,
+      router,
       menu,
+      q,
+      logout() {
+        store.dispatch("uniChat/logout");
+        q.notify({
+          type: "negative",
+          message: "Byeeeee !!!",
+          position: "top",
+        });
+        router.push("/");
+      },
     };
   },
 };

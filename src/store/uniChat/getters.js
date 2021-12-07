@@ -2,5 +2,9 @@ export function getMenu (state) {
   return state.menu
 }
 export function getLoggedin (state) {
-  return state.menu
+  return state.loggedin
+}
+
+export function getProfile (state) {
+  return state.profile
 }
