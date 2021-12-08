@@ -30,7 +30,7 @@ export function init({ commit, dispatch }, val) {
           console.log('response :', response)
           commit('setLoggedin', true);
           commit('setProfile', response.data);
-          vm.$router.push('/dashboard')
+          // vm.$router.push('/dashboard')
           resolve('user re-logged in')
         })
         .catch((error) => {
@@ -39,7 +39,7 @@ export function init({ commit, dispatch }, val) {
           console.log("An error occurred:", error.response);
         })
     } else {
-      vm.$router.push('/')
+      // vm.$router.push('/')
       resolve('user isnt authneticated');
     }
   })

@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <div class="column">
       <div class="row">
-        <q-card square class="shadow-24" style="width: 30vw">
+        <q-card square class="shadow-24" style="width: 30vw; min-width: 400px">
           <q-card-section class="bg-primary">
             <h4 class="text-h5 text-white q-my-md">
               {{ register ? "Register" : "Log In" }}
@@ -157,7 +157,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { api } from "boot/axios";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -188,6 +188,12 @@ export default {
     const loggedin = computed({
       get: () => store.state.uniChat.loggedin,
     });
+
+    watch(loggedin, (newValue, oldValue) => {
+      if (newValue) {
+        router.push('/dashboard')
+      }
+    })
 
     const headers = ref({});
     let params = new URLSearchParams(location.search);

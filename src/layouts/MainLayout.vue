@@ -10,7 +10,7 @@
           dense
           icon="menu"
         />
-        <q-toolbar-title>UniChat</q-toolbar-title>
+        <q-toolbar-title @click="goToDashboard()">UniChat</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -43,7 +43,7 @@
                 </q-item>
               </q-list>
             </q-expansion-item>
-            <q-item clickable v-ripple>
+            <q-item @click="goToCalendar()" clickable v-ripple>
               <q-item-section> Callendar </q-item-section>
             </q-item>
             <q-item clickable v-ripple>
@@ -55,9 +55,11 @@
               clickable
               v-ripple
               class="absolute-bottom"
-              style="background-color: #4b5769;"
+              style="background-color: #4b5769"
             >
-              <q-item-section style="color: #BF616A; font-weight: bold;"> Logout </q-item-section>
+              <q-item-section style="color: #bf616a; font-weight: bold">
+                Logout
+              </q-item-section>
             </q-item>
           </q-list>
         </div>
@@ -102,6 +104,12 @@ export default {
         });
         router.push("/");
       },
+      goToCalendar() {
+        router.push("/callendar");
+      },
+      goToDashboard() {
+        router.push("/dashboard");
+      }
     };
   },
 };
