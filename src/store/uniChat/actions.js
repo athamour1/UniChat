@@ -7,7 +7,7 @@
 */
 import { api } from 'boot/axios'
 
-export function getMenu ({commit}) {
+export function getMenu({ commit }) {
   api.get('https://api.unichat.thanos.fun/parent-menus')
     .then(response => {
       // console.log('Response :', response);
@@ -22,22 +22,24 @@ export function init({ commit, dispatch }, val) {
   return new Promise((resolve, reject) => {
 
     const token = localStorage.getItem('token')
-
+    console.log('token :', token)
     if (token) {
-      commit('setloggedin', true);
-      api
-        .get(API_URL + "/users/me", { headers: { "Authorization": `Bearer ${token}` } })
+      const vm = this
+      api.get('https://api.unichat.thanos.fun/users/me', { headers: { "Authorization": 'Bearer ' + token } })
         .then((response) => {
+          console.log('response :', response)
           commit('setLoggedin', true);
           commit('setProfile', response.data);
+          vm.$router.push('/dashboard')
           resolve('user re-logged in')
         })
         .catch((error) => {
           // Handle error.
-          commit('setloggedin', false);
+          commit('setLoggedin', false);
           console.log("An error occurred:", error.response);
         })
     } else {
+      vm.$router.push('/')
       resolve('user isnt authneticated');
     }
   })

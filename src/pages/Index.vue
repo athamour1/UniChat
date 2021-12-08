@@ -1,13 +1,14 @@
 <template>
-  <q-page class="flex flex-center">
-    test
-  </q-page>
+  <q-page class="flex flex-center"> test </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'PageIndex'
-})
+  name: "PageIndex",
+  mounted() {
+    window.dash = this;
+  },
+});
 </script>

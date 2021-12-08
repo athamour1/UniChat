@@ -8,6 +8,7 @@ export default defineComponent({
   name: "App",
   mounted() {
     this.$store.dispatch("uniChat/getMenu");
+    this.$store.dispatch("uniChat/init");
   },
 });
 </script>
