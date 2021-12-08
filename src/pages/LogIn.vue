@@ -189,6 +189,15 @@ export default {
       get: () => store.state.uniChat.loggedin,
     });
 
+    const headers = ref({});
+    let params = new URLSearchParams(location.search);
+    for (let p of params) {
+      headers.value[p[0]] = p[1];
+      console.log(headers.value[p[0]] = p[1])
+    }
+
+    console.log(headers.value)
+
     return {
       register,
       stayLoggedIn,
@@ -208,6 +217,7 @@ export default {
       store,
       q,
       loggedin,
+      headers,
       switchVisibility() {
         visibility.value = !visibility.value;
         passwordFieldType.value = visibility.value ? "text" : "password";
@@ -287,7 +297,13 @@ export default {
                   message: "You are loged in !!!",
                   position: "top",
                 });
-                router.push("dashboard");
+                console.log('test1')
+                if (headers.value.u) {
+                  router.push("/" + headers.value.u);
+                } else {
+                  console.log('malakas')
+                  router.push("dashboard");
+                }
               }
               if (response.status === 400) {
                 triggerNegative("Identifier or password invalid");

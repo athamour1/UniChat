@@ -55,8 +55,9 @@
               clickable
               v-ripple
               class="absolute-bottom"
+              style="background-color: #4b5769;"
             >
-              <q-item-section style="color: #BF616A;"> Logout </q-item-section>
+              <q-item-section style="color: #BF616A; font-weight: bold;"> Logout </q-item-section>
             </q-item>
           </q-list>
         </div>
