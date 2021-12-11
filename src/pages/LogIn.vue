@@ -2,8 +2,8 @@
   <q-page class="flex flex-center">
     <div class="column">
       <div class="row">
-        <q-card square class="shadow-24" style="width: 30vw; min-width: 400px">
-          <q-card-section class="bg-primary">
+        <q-card square class="shadow-24" style="width: 30vw; min-width: 400px; border-radius: 15px!important">
+          <q-card-section class="bg-primary" style="">
             <h4 class="text-h5 text-white q-my-md">
               {{ register ? "Register" : "Log In" }}
             </h4>
@@ -199,10 +199,10 @@ export default {
     let params = new URLSearchParams(location.search);
     for (let p of params) {
       headers.value[p[0]] = p[1];
-      console.log(headers.value[p[0]] = p[1])
+      //console.log(headers.value[p[0]] = p[1])
     }
 
-    console.log(headers.value)
+    //console.log(headers.value)
 
     return {
       register,
@@ -234,8 +234,7 @@ export default {
       checkUsername(val) {
         return new Promise((resolve) => {
           api.get("checkusername/" + val).then((response) => {
-            response.data;
-            resolve(!response.data || "try an other username");
+            resolve((!response.data) || "try an other username");
           });
         });
       },
@@ -296,18 +295,18 @@ export default {
           store
             .dispatch("uniChat/authRequest", stay)
             .then((response) => {
-              console.log(response);
+              //console.log(response);
               if (loggedin.value) {
                 q.notify({
                   type: "positive",
                   message: "You are loged in !!!",
                   position: "top",
                 });
-                console.log('test1')
+                //console.log('test1')
                 if (headers.value.u) {
                   router.push("/" + headers.value.u);
                 } else {
-                  console.log('malakas')
+                  //console.log('malakas')
                   router.push("dashboard");
                 }
               }

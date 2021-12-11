@@ -21,9 +21,12 @@ export default route(function ({ store, state/*, ssrContext */ }) {
     const publicPages = ['/']
     const authRequired = !publicPages.includes(to.path)
     const loggedIn = store.getters['uniChat/getLoggedin']
+    const profile = store.getters['uniChat/getProfile']
 
-    if (loggedIn) {
-      next();
+    //console.log(to.path)
+
+    if (loggedIn && profile.role.id != 4 && to.path === '/admin') {
+      next('/dashboard')
     } else if (authRequired && !loggedIn) {
       return next({
         path: '/',
@@ -31,8 +34,9 @@ export default route(function ({ store, state/*, ssrContext */ }) {
           u: to.fullPath.replace('/', ''),
         }
       });
+    } else {
+      next();
     }
-    next();
 
   })
 

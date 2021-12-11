@@ -14,7 +14,7 @@ export function getMenu({ commit }) {
       commit('setMenu', response.data);
     })
     .catch(error => {
-      console.log('Error :', error);
+      //console.log('Error :', error);
     })
 }
 
@@ -22,12 +22,12 @@ export function init({ commit, dispatch }, val) {
   return new Promise((resolve, reject) => {
 
     const token = localStorage.getItem('token')
-    console.log('token :', token)
+    //console.log('token :', token)
     if (token) {
       const vm = this
       api.get('/users/me', { headers: { "Authorization": `Bearer ${token}` } })
         .then((response) => {
-          console.log('response :', response)
+          //console.log('response :', response)
           commit('setLoggedin', true);
           commit('setProfile', response.data);
           // vm.$router.push('/dashboard')
@@ -36,7 +36,7 @@ export function init({ commit, dispatch }, val) {
         .catch((error) => {
           // Handle error.
           commit('setLoggedin', false);
-          console.log("An error occurred:", error.response);
+          //console.log("An error occurred:", error.response);
         })
     } else {
       // vm.$router.push('/')
@@ -57,7 +57,7 @@ export function authRequest({ commit, dispatch }, log) {
         resolve('user logged in')
       })
       .catch((error) => {
-        console.log("An error occurred:", error.response);
+        //console.log("An error occurred:", error.response);
         reject(error);
       })
   })
@@ -73,7 +73,7 @@ export function registerRequest({ commit, dispatch }, reg) {
         resolve('User is Signed Up')
       })
       .catch((error) => {
-        console.log("An error occurred:", error.response);
+        //console.log("An error occurred:", error.response);
         reject(error);
       }
       );
