@@ -25,7 +25,7 @@ export function init({ commit, dispatch }, val) {
     console.log('token :', token)
     if (token) {
       const vm = this
-      api.get('https://api.unichat.thanos.fun/users/me', { headers: { "Authorization": 'Bearer ' + token } })
+      api.get('/users/me', { headers: { "Authorization": `Bearer ${token}` } })
         .then((response) => {
           console.log('response :', response)
           commit('setLoggedin', true);
@@ -50,7 +50,7 @@ export function authRequest({ commit, dispatch }, log) {
       .post("/auth/local", log.log)
       .then((response) => {
         commit('setLoggedin', true);
-        commit('setProfile', response.data);
+        commit('setProfile', response.data.user);
         if (log.st) {
           localStorage.setItem('token', response.data.jwt)
         }

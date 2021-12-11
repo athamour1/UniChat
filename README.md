@@ -1,6 +1,6 @@
-# Quasar App (unichat)
+# Unichat
 
-A Quasar Framework app
+An  app Build with Quasar Framework
 
 ## Install the dependencies
 ```bash

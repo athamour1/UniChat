@@ -9,6 +9,6 @@ export default defineComponent({
   name: "PageIndex",
   mounted() {
     window.dash = this;
-  },
+  }
 });
 </script>

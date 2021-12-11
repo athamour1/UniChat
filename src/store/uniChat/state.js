@@ -3,7 +3,13 @@ export default function () {
     menu: [{
       child_menus: [],
       loggedin: false,
-      profile: {}
+      profile: {
+        user: {
+          role: {
+            id: 0
+          }
+        }
+      }
     }]
   }
 }

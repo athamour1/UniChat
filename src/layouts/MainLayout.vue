@@ -36,6 +36,7 @@
                   clickable
                   v-ripple
                   bordered
+                  class=""
                   v-for="childCategory in parentCategory.child_menus"
                   :key="childCategory.id"
                 >
@@ -44,12 +45,17 @@
               </q-list>
             </q-expansion-item>
             <q-item @click="goToCalendar()" clickable v-ripple>
-              <q-item-section> Callendar </q-item-section>
+              <q-item-section> Calendar </q-item-section>
             </q-item>
             <q-item clickable v-ripple>
               <q-item-section> News </q-item-section>
             </q-item>
-            <q-item class="" style="height: 100%" />
+            <q-separator v-if="profile.role.id == 4" spaced inset size="10px" style="border-radius: 10px" />
+            <q-item v-if="profile.role.id == 4" clickable v-ripple @click="goToAdmins()">
+              <q-item-section>
+                <q-item-label>Admin Panel</q-item-label>
+              </q-item-section>
+            </q-item>
             <q-item
               @click="logout()"
               clickable
@@ -89,11 +95,15 @@ export default {
     const loggedin = computed({
       get: () => store.state.uniChat.loggedin,
     });
+    const profile = computed({
+      get: () => store.state.uniChat.profile,
+    });
     return {
       drawerLeft: ref(false),
       loggedin,
       router,
       menu,
+      profile,
       q,
       logout() {
         store.dispatch("uniChat/logout");
@@ -105,12 +115,18 @@ export default {
         router.push("/");
       },
       goToCalendar() {
-        router.push("/callendar");
+        router.push("/calendar");
       },
       goToDashboard() {
         router.push("/dashboard");
+      },
+      goToAdmins() {
+        router.push("/admin")
       }
     };
+  },
+  mounted() {
+    window.main = this;
   },
 };
 </script>

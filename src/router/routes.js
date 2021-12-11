@@ -15,10 +15,17 @@ const routes = [
     ]
   },
   {
-    path: '/callendar',
+    path: '/calendar',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Callendar.vue') }
+      { path: '', component: () => import('pages/Calendar.vue') }
+    ]
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/adminPanel.vue') }
     ]
   },
 
