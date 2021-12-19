@@ -14,8 +14,14 @@
       <q-tab name="3" label="Edit Categories" no-caps />
     </q-tabs>
 
-    <q-tab-panels v-model="tab" animated class="text-white" style="background-color: #424c5d">
+    <q-tab-panels
+      v-model="tab"
+      animated
+      class="text-white"
+      style="background-color: #424c5d"
+    >
       <q-tab-panel name="1">
+        <auditLogTable />
       </q-tab-panel>
 
       <q-tab-panel name="2">
@@ -34,7 +40,12 @@
 <script>
 import { ref } from 'vue'
 
+import auditLogTable from "components/auditLogTable.vue"
+
 export default {
+  components: {
+    auditLogTable
+  },
   setup() {
     const tab = ref('1')
     return {
