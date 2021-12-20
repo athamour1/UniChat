@@ -25,8 +25,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="2">
-        <div class="text-h6">Alarms</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <createMassUsers />
       </q-tab-panel>
 
       <q-tab-panel name="3">
@@ -41,10 +40,12 @@
 import { ref } from 'vue'
 
 import auditLogTable from "components/auditLogTable.vue"
+import createMassUsers from "components/createMassUsers.vue"
 
 export default {
   components: {
-    auditLogTable
+    auditLogTable,
+    createMassUsers
   },
   setup() {
     const tab = ref('1')

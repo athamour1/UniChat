@@ -1,6 +1,6 @@
 <template>
   <q-table
-    :rows="mySessions"
+    :rows="auditLogs"
     :columns="columns"
     row-key="id"
     :rows-per-page-options="[5, 10, 20, 50, 100]"
@@ -34,6 +34,7 @@ import { ref } from 'vue'
 export default {
   // name: 'ComponentName',
   setup() {
+    const auditLogs = ref([])
     const columns = ref([
       {
         name: "id",
@@ -63,6 +64,7 @@ export default {
     ]);
 
     return {
+      auditLogs,
       columns,
     };
   },
