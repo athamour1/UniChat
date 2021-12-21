@@ -29,8 +29,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="3">
-        <div class="text-h6">Movies</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <editCategories />
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -41,11 +40,13 @@ import { ref } from 'vue'
 
 import auditLogTable from "components/auditLogTable.vue"
 import createMassUsers from "components/createMassUsers.vue"
+import editCategories from "components/editCategories.vue"
 
 export default {
   components: {
     auditLogTable,
-    createMassUsers
+    createMassUsers,
+    editCategories
   },
   setup() {
     const tab = ref('1')

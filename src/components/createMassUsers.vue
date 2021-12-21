@@ -21,6 +21,7 @@
           v-model="numberOfUsers"
           type="number"
           label="Number of New Users"
+          dark
         />
       </div>
     </div>
