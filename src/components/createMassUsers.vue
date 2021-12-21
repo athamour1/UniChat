@@ -3,6 +3,7 @@
     <div class="col-6 flex flex-center q-pa-md">
       <div class="col-6 flex flex-center">
         <q-btn
+          rounded
           color="primary"
           icon="search"
           :label="'Generate ' + numberOfUsers + ' New Random Users'"
@@ -11,10 +12,11 @@
         />
       </div>
       <div class="col-2" />
-      <div class="col-4 flex flex-center">
+      <div class="col-4 flex flex-center q-pl-md">
         <q-input
           style="height: 36 !important"
           rounded
+          dense
           outlined
           v-model="numberOfUsers"
           type="number"
@@ -24,10 +26,11 @@
     </div>
     <div class="col-6 flex flex-center q-pa-md">
       <q-btn
+        rounded
         color="primary"
         icon="check"
-        label="Cretae The  New Random Users"
-        @click="getRandomUsers()"
+        label="Create The New Random Users"
+        @click="createNewUsers()"
         no-caps
       />
     </div>
@@ -37,6 +40,7 @@
     :columns="columns"
     row-key="id"
     :rows-per-page-options="[40]"
+    card-class="bg-primary text-white"
   >
     <template #no-data>Click the button above to generate some users</template>
     <template v-slot:body="props">
@@ -50,8 +54,8 @@
         <q-td class="" :props="props" key="email">
           {{ props.row.email }}
         </q-td>
-        <q-td class="" :props="props" key="userName">
-          {{ props.row.userName }}
+        <q-td class="" :props="props" key="username">
+          {{ props.row.username }}
         </q-td>
         <q-td class="" :props="props" key="password">
           {{ props.row.password }}
@@ -66,6 +70,9 @@
               />
             </q-avatar>
           </div>
+        </q-td>
+        <q-td class="" :props="props" key="child_menus">
+          {{ props.row.child_menus }}
         </q-td>
       </q-tr>
     </template>
@@ -103,7 +110,7 @@ export default {
         align: "left",
       },
       {
-        name: "userName",
+        name: "username",
         label: "Username",
         align: "left",
       },
@@ -117,11 +124,17 @@ export default {
         label: "Avatar",
         align: "left",
       },
+      {
+        name: "child_menus",
+        label: "Child Menus",
+        align: "left",
+      },
     ]);
 
     const menu = computed({
       get: () => store.state.uniChat.menu,
     });
+    console.log(menu.value);
     function getRandomUsers() {
       let url =
         "https://randomuser.me/api/?nat=gb&results=" +
@@ -141,10 +154,16 @@ export default {
               " " +
               response.data.results[index].name.last;
             obj.email = response.data.results[index].email;
-            obj.userName = response.data.results[index].login.username;
+            obj.username = response.data.results[index].login.username;
             obj.password = response.data.results[index].login.password;
             obj.avatar = response.data.results[index].picture;
-            obj.category = getRandomInt(menu.value.length);
+            let randomParent = Math.floor(Math.random() * menu.value.length);
+            obj.child_menu =
+              menu.value[randomParent].child_menus[
+                Math.floor(
+                  Math.random() * menu.value[randomParent].child_menus.length
+                )
+              ].id;
             newUsers.value.push(obj);
             obj = {};
           }
@@ -154,6 +173,26 @@ export default {
         });
     }
 
+    function createNewUsers() {
+      for (
+        let index = 0, length = newUsers.value.length;
+        index < length;
+        index += 1
+      ) {
+        api
+          .post(
+            "https://api.unichat.thanos.fun/auth/local/register",
+            newUsers.value[index]
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+
     return {
       columns,
       getRandomUsers,
@@ -161,10 +200,12 @@ export default {
       store,
       numberOfUsers,
       newUsers,
+      menu,
+      createNewUsers,
     };
   },
   mounted() {
     window.createMassUsers = this;
-  }
+  },
 };
 </script>

@@ -3,7 +3,8 @@
     :rows="auditLogs"
     :columns="columns"
     row-key="id"
-    :rows-per-page-options="[5, 10, 20, 50, 100]"
+    :rows-per-page-options="[50, 100]"
+    card-class="bg-primary text-white"
   >
     <template #no-data> No Audit Log yet </template>
     <template v-slot:body="props">
