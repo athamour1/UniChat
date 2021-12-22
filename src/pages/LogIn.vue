@@ -2,7 +2,11 @@
   <q-page class="flex flex-center">
     <div class="column">
       <div class="row">
-        <q-card square class="shadow-24" style="width: 30vw; min-width: 400px; border-radius: 15px!important">
+        <q-card
+          square
+          class="shadow-24"
+          style="width: 30vw; min-width: 400px; border-radius: 15px !important"
+        >
           <q-card-section class="bg-primary" style="">
             <h4 class="text-h5 text-white q-my-md">
               {{ register ? "Register" : "Log In" }}
@@ -182,6 +186,7 @@ export default {
     const btnLabel = ref("Log In");
     const passwordIsOk = ref(false);
     const router = useRouter();
+    const route = useRoute();
     const store = useStore();
     const q = useQuasar();
 
@@ -189,20 +194,25 @@ export default {
       get: () => store.state.uniChat.loggedin,
     });
 
-    watch(loggedin, (newValue, oldValue) => {
-      if (newValue) {
-        router.push('/dashboard')
-      }
-    })
+    console.log(store.state.uniChat.loggedin);
 
     const headers = ref({});
+
     let params = new URLSearchParams(location.search);
     for (let p of params) {
       headers.value[p[0]] = p[1];
-      //console.log(headers.value[p[0]] = p[1])
     }
+    console.log('Headers: ', headers.value);
 
-    //console.log(headers.value)
+    watch(loggedin, (newValue, oldValue) => {
+      if (loggedin.value) {
+        if (headers.value.next) {
+          router.push("/" + headers.value.next);
+        } else {
+          router.push("/dashboard");
+        }
+      }
+    });
 
     return {
       register,
@@ -220,6 +230,7 @@ export default {
       btnLabel,
       passwordIsOk,
       router,
+      route,
       store,
       q,
       loggedin,
@@ -234,7 +245,7 @@ export default {
       checkUsername(val) {
         return new Promise((resolve) => {
           api.get("checkusername/" + val).then((response) => {
-            resolve((!response.data) || "try an other username");
+            resolve(!response.data || "try an other username");
           });
         });
       },
@@ -302,13 +313,13 @@ export default {
                   message: "You are loged in !!!",
                   position: "top",
                 });
-                //console.log('test1')
-                if (headers.value.u) {
-                  router.push("/" + headers.value.u);
-                } else {
-                  //console.log('malakas')
-                  router.push("dashboard");
-                }
+                // if (headers.value.u) {
+                //   console.log("sthn anakateythinsh");
+                //   router.push("/" + headers.value.u);
+                // } else {
+                //   console.log("dashboard");
+                //   router.push("/dashboard");
+                // }
               }
               if (response.status === 400) {
                 triggerNegative("Identifier or password invalid");

@@ -6,6 +6,7 @@
     \/_/\/_/ \/_____/   \/_/  \/_/ \/_____/ \/_/ \/_/   \/_____/ \/_____/
 */
 import { api } from 'boot/axios'
+import { Loading } from 'quasar'
 
 export function getMenu({ commit }) {
   api.get('https://api.unichat.thanos.fun/parent-menus')
@@ -20,26 +21,30 @@ export function getMenu({ commit }) {
 
 export function init({ commit, dispatch }, val) {
   return new Promise((resolve, reject) => {
-
+    Loading.show()
     const token = localStorage.getItem('token')
     //console.log('token :', token)
     if (token) {
       const vm = this
       api.get('/users/me', { headers: { "Authorization": `Bearer ${token}` } })
         .then((response) => {
-          //console.log('response :', response)
+          console.log('response :', response)
           commit('setLoggedin', true);
           commit('setProfile', response.data);
+          commit('setToken', token)
           // vm.$router.push('/dashboard')
+          Loading.hide()
           resolve('user re-logged in')
         })
         .catch((error) => {
           // Handle error.
+          Loading.hide()
           commit('setLoggedin', false);
           //console.log("An error occurred:", error.response);
         })
     } else {
       // vm.$router.push('/')
+      Loading.hide()
       resolve('user isnt authneticated');
     }
   })
@@ -51,6 +56,7 @@ export function authRequest({ commit, dispatch }, log) {
       .then((response) => {
         commit('setLoggedin', true);
         commit('setProfile', response.data.user);
+        commit('setToken', response.data.jwt)
         if (log.st) {
           localStorage.setItem('token', response.data.jwt)
         }
@@ -64,7 +70,6 @@ export function authRequest({ commit, dispatch }, log) {
 }
 
 export function registerRequest({ commit, dispatch }, reg) {
-  const vm = this;
   // ("signup");
   return new Promise((resolve, reject) => {
     api
