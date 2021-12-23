@@ -19,7 +19,20 @@ export function addParentCategory (state, data) {
 }
 
 export function addChildCategory (state, data) {
-  console.log(state.menu[state.menu.findIndex((x) => x.id === data.parent_menu.id)].child_menus.push(data))
+  const index = state.menu.findIndex((x) => x.id === data.parent_menu.id)
+  console.log(index)
+  state.menu[index].child_menus.push(data)
+}
+
+export function removeParentCategory (state, data) {
+  const index = state.menu.findIndex((x) => x.id === data.id)
+  state.menu.splice(index, 1)
+}
+
+export function removeChildCategory (state, data) {
+  const indexParent = state.menu.findIndex((x) => x.id === data.parent_menu.id)
+  const index = state.menu[indexParent].child_menus.findIndex((x) => x.id === data.id)
+  state.menu[indexParent].child_menus.splice(index, 1)
 }
 
 export function removeuser (state) {
