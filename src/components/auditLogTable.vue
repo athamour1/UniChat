@@ -1,36 +1,26 @@
 <template>
   <q-table
-    :rows="auditLogs"
+    :rows="auditLog"
     :columns="columns"
     row-key="id"
     :rows-per-page-options="[50, 100]"
     card-class="bg-primary text-white"
   >
-    <template #no-data> No Audit Log yet </template>
+    <template #no-data>No Audit Log yet</template>
     <template v-slot:body="props">
       <q-tr :props="props">
-        <q-td class="" :props="props" key="experiencePhoto">
-          <!-- <div class="q-pa-md q-gutter-sm">
-            <q-avatar>
-              <q-img
-                :src="
-                  'https://api.classy-project.eu' +
-                  props.row.experiences.Media[0].formats.thumbnail.url
-                "
-                :ratio="1"
-                spinner-color="white"
-              />
-            </q-avatar>
-          </div> -->
-        </q-td>
+        <q-td class :props="props" key="id">{{ props.row.id }}</q-td>
+        <q-td class :props="props" key="title">{{ props.row.title }}</q-td>
+        <q-td class :props="props" key="dateTime">{{ props.row.dateTime }}</q-td>
+        <q-td class :props="props" key="userId">{{ props.row.userId }}</q-td>
       </q-tr>
     </template>
   </q-table>
 </template>
-
 <script>
-
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { api } from 'boot/axios'
+import { useStore } from 'vuex'
 
 export default {
   // name: 'ComponentName',
@@ -43,6 +33,11 @@ export default {
         align: "left",
       },
       {
+        name: "title",
+        label: "Title",
+        align: "left",
+      },
+      {
         name: "dateTime",
         label: "Date & Time",
         align: "left",
@@ -51,22 +46,20 @@ export default {
         name: "userId",
         label: "userId",
         align: "left",
-      },
-      {
-        name: "imp",
-        label: "Title",
-        align: "left",
-      },
-      {
-        name: "title",
-        label: "Title",
-        align: "left",
       }
     ]);
+
+    const store = useStore();
+
+    const auditLog = computed({
+      get: () => store.state.uniChat.auditLog,
+    });
 
     return {
       auditLogs,
       columns,
+      auditLog,
+      store,
     };
   },
 };

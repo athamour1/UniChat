@@ -11,6 +11,8 @@ export default function () {
         }
       }
     },
-    token: ""
+    token: "",
+    auditLog: [],
+    faculty: [],
   }
 }

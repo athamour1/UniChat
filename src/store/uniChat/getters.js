@@ -12,3 +12,11 @@ export function getProfile (state) {
 export function getToken (state) {
   return state.token
 }
+
+export function getAuditLog (state) {
+  return state.auditLog
+}
+
+export function getFaculty (state) {
+  return state.faculty
+}

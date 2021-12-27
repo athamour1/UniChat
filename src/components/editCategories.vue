@@ -2,7 +2,10 @@
   <div class="flex flex-center">
     <div class="column full-height">
       <div class="row full-width">
-        <div class="col-6 q-pa-md q-gutter-sm bg-primary text-white flex flex-center">
+        <div
+          class="col-6 q-pa-md q-gutter-sm bg-primary text-white flex flex-center"
+          style="border-radius: 20px;"
+        >
           <q-tree
             :nodes="menu"
             node-key="title"
@@ -31,7 +34,7 @@
           </q-tree>
         </div>
         <div class="col-6 q-pa-md flex flex-center">
-          <q-card class="my-card bg-primary">
+          <q-card class="my-card bg-primary" style="border-radius: 20px;">
             <q-card-section>Create an new Parent Category</q-card-section>
             <q-card-section>
               <q-input
@@ -55,7 +58,7 @@
               />
             </q-card-section>
           </q-card>
-          <q-card class="my-card bg-primary">
+          <q-card class="my-card bg-primary" style="border-radius: 20px;">
             <q-card-section>Create an new Child Category</q-card-section>
             <q-card-section class="flex flex-center">
               <q-select

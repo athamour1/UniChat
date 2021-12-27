@@ -33,6 +33,10 @@ export function init({ commit, dispatch }, val) {
           commit('setProfile', response.data);
           commit('setToken', token)
           // vm.$router.push('/dashboard')
+          if (response.data.role.id === 4) {
+            dispatch('getAuditLog', token)
+          }
+          dispatch('getFaculty', token)
           Loading.hide()
           resolve('user re-logged in')
         })
@@ -60,6 +64,10 @@ export function authRequest({ commit, dispatch }, log) {
         if (log.st) {
           localStorage.setItem('token', response.data.jwt)
         }
+        if (response.data.user.role.id === 4) {
+          dispatch('getAuditLog', response.data.jwt)
+        }
+        dispatch('getFaculty', response.data.jwt)
         resolve('user logged in')
       })
       .catch((error) => {
@@ -112,4 +120,26 @@ export function logout({ commit, dispatch }, user) {
     commit('removeuser', true)
     resolve('user removed')
   })
+}
+
+export function getAuditLog({ commit, dispatch }, token) {
+  api.get('auditlogs', { headers: { "Authorization": `Bearer ${token}` } })
+    .then(response => {
+      console.log('response: ', response.data)
+      commit('setAuditLog', response.data)
+    })
+    .then(error => {
+      console.log('error: ', error)
+    })
+}
+
+export function getFaculty({ commit, dispatch }, token) {
+  api.get('faculty', { headers: { "Authorization": `Bearer ${token}` } })
+    .then(response => {
+      console.log('response: ', response.data)
+      commit('setFaculty', response.data)
+    })
+    .then(error => {
+      console.log('error: ', error)
+    })
 }
