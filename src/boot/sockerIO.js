@@ -6,7 +6,7 @@ import SocketIO from 'socket.io-client'
 
 export default boot(async ({app, store, router}) => {
   // something to do
-  const connection = SocketIO('https://api.book-lite.com')
+  const connection = SocketIO('https://api.unichat.thanos.fun')
   const socket = new VueSocketIO({
     debug: true,
     connection: connection, //options object is Optional
