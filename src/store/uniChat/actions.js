@@ -143,3 +143,7 @@ export function getFaculty({ commit, dispatch }, token) {
       console.log('error: ', error)
     })
 }
+
+export function SOCKET_conected({ commit, dispatch }, data) {
+  console.log(data);
+}
